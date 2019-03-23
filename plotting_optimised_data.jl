@@ -15,7 +15,7 @@ end
 nanmean(x) = mean(filter(!isnan,x))
 nanmean(x,y) = mapslices(nanmean,x,y)
 
-f=jldopen("/home/vamsi/Github/J1J2-weights/J1J2data4x4fullresbind2019-03-21T15:44:07.928.jld2","r")
+f=jldopen("/home/vamsi/Github/AntiFerro-J1J2Weights/J1J2data4x4fullresbind2019-03-23T19:27:21.403.jld2","r")
 E_temp = f["E_temp"].s
 mag_temp = f["mag_temp"].s
 skyrm_temp = f["skyrm_temp"].s
@@ -68,7 +68,7 @@ figure()
         end
         if ii == 1
             title("Magnetisation 00 - "*string(N)*"x"*string(N),fontsize = 17)
-        elseif ii == 2
+        elseif ii == 2/home/vamsi/Github/AntiFerro-Lattices/Data/4x4/data4x4fullresbind2019-03-13T05:26:19.273.jld2
             title("Magnetisation (0pi+pi0)/2 - "*string(N)*"x"*string(N),fontsize = 17)
             legend("J2/J1 = ".*string.(J_space[jstart:jend]),bbox_to_anchor=[1.05,1],loc=2,ncol = 1)
         elseif ii == 3
@@ -134,7 +134,7 @@ for jj in 1:3
 end
 
 =#
-#=
+
 #skyrmj1j2
 for jj in 1:3
     figure()
@@ -155,7 +155,7 @@ for jj in 1:3
         end
         #legend("T = ".*string.(Temperature[1:1:end]),bbox_to_anchor=[1.05,1],loc=2,ncol = 1)
         if ii>2
-            xlabel(L"$J_2/J_1$",fontsize = 14)
+            xlabel(L"$\lambda$",fontsize = 14)
         end
         if mod(ii,2)==1
             if jj == 1
@@ -190,7 +190,7 @@ for jj in 1:3
             title(L"Magnetisation $\pi \pi$ - "*string(N)*"x"*string(N),fontsize = 17)
         end
         if ii>2
-            xlabel(L"$J_2/J_1$",fontsize = 14)
+            xlabel(L"$\lambda$",fontsize = 14)
         end
         if mod(ii,2)==1
             if jj == 1
@@ -225,7 +225,7 @@ for jj in 1:3
             title(L"Energy $\pi \pi$ - "*string(N)*"x"*string(N),fontsize = 17)
         end
         if ii>2
-            xlabel(L"$J_2/J_1$",fontsize = 14)
+            xlabel(L"$\lambda$",fontsize = 14)
         end
         if mod(ii,2)==1
             if jj == 1
@@ -240,7 +240,7 @@ for jj in 1:3
         grid("on")
     end
 end
-=#
+
 
 
 #Susceptibilityj1j2
@@ -262,13 +262,13 @@ for ii in 1:4
         title(L"Susceptibility $\pi \pi$ - "*string(N)*"x"*string(N),fontsize = 17)
     end
     if ii>2
-        xlabel(L"$J_2/J_1$",fontsize = 14)
+        xlabel(L"$\lambda$",fontsize = 14)
     end
     if mod(ii,2)==1
         if jj == 1
             ylabel(L"|mag|",fontsize = 14)
         elseif jj == 2
-            ylabel(L"$ \langle \chi \rangle$",fontsize = 14)
+            ylabel(L"$ \chi $",fontsize = 14)
         elseif jj == 3
             ylabel(L"$ mag^4$",fontsize = 14)
         end
@@ -277,6 +277,39 @@ for ii in 1:4
     grid("on")
 end
 
+#Skyrm-Susceptibilityj1j2
+figure()
+for ii in 1:4
+    jj = 2 #M^2 terms
+    subplot(2,2,ii)
+    for i in 1:1:length(Temperature)
+        errorbar(J_space,skyrm[i,:,ii,jj,1].*(N^4/Temperature[i]),skyrm[i,:,ii,jj,2].*(N^4/Temperature[i]),fmt="o",linestyle="-",color=palette[mod(3*i-3,palsize)+1,:])
+    end
+    if ii == 1
+        title("Skyrm-Sus 00 - "*string(N)*"x"*string(N),fontsize = 17)
+    elseif ii == 2
+        title(L"Skyrm-Sus $(0\pi+ \pi 0)/2$ - "*string(N)*"x"*string(N),fontsize = 17)
+        legend("T = ".*string.(Temperature[1:1:end]),bbox_to_anchor=[1.05,1],loc=2,ncol = 1)
+    elseif ii == 3
+        title(L"Skyrm-Sus $\pi 0$ - "*string(N)*"x"*string(N),fontsize = 17)
+    elseif ii == 4
+        title(L"Skyrm-Sus $\pi \pi$ - "*string(N)*"x"*string(N),fontsize = 17)
+    end
+    if ii>2
+        xlabel(L"$\lambda$",fontsize = 14)
+    end
+    if mod(ii,2)==1
+        if jj == 1
+            ylabel(L"|mag|",fontsize = 14)
+        elseif jj == 2
+            ylabel(L"$  \chi_{skyrm} $",fontsize = 14)
+        elseif jj == 3
+            ylabel(L"$ mag^4$",fontsize = 14)
+        end
+    end
+    axvline(x=0.5,linestyle="-.",color="r")
+    grid("on")
+end
 
 #SKYRMBIND
 #=

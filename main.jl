@@ -1,13 +1,13 @@
 #Includes
 using Distributed
-#addprocs(Sys.CPU_THREADS)
-addprocs(4)
+addprocs(Sys.CPU_THREADS)
+#addprocs(4)
 println(nprocs())
 
-#@everywhere include("/home/guru/repos/AntiFerro-Lattices/skyrm_aux.jl")
-#@everywhere include("/home/guru/repos/AntiFerro-Lattices/error_aux.jl")
-#@everywhere include("/home/guru/repos/AntiFerro-Lattices/energy_aux.jl")
-#@everywhere include("/home/guru/repos/AntiFerro-Lattices/lat_aux.jl")
+#@everywhere include("/home/guru/repos/AntiFerro-J1J2Weights/skyrm_aux.jl")
+#@everywhere include("/home/guru/repos/AntiFerro-J1J2Weights/error_aux.jl")
+#@everywhere include("/home/guru/repos/AntiFerro-J1J2Weights/energy_aux.jl")
+#@everywhere include("/home/guru/repos/AntiFerro-J1J2Weights/lat_aux.jl")
 
 @everywhere include("skyrm_aux.jl")
 @everywhere include("error_aux.jl")
@@ -26,7 +26,6 @@ Tchange = 0.1
 Tmax = 1
 N = 4
 Temperature = Tmin:Tchange:Tmax
-Temperature = [0.0001,0.001,0.01,0.1,1]
 #J_space = [0,0.25,0.5,0.75,1.0]
 J_space = [0.0:0.1:0.3;0.35:0.05:0.65;0.7:0.1:1]
 
